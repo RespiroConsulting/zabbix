@@ -6,7 +6,7 @@
       become: true
 
     - name: Register YAML file content as a variable
-      ansible.builtin.shell: cat /home/vagrant/devices.yml
+      shell: cat /home/vagrant/devices.yml
       register: result
 
     - name: Set a variable as a dictionary
