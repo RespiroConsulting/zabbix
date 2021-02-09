@@ -1,0 +1,45 @@
+---
+  - hosts: localhost
+    tasks:
+    - name: Run a python script to retrieve hosts info from netbox
+      command: python netboxpython.py
+      become: true
+
+    - name: Register YAML file content as a variable
+      ansible.builtin.shell: cat /home/vagrant/devices.yml
+      register: result
+
+    - name: Set a variable as a dictionary
+      ansible.builtin.set_fact:
+        devices: "{{ result.stdout | from_yaml }}"
+
+    - name: Configure hosts in zabbix
+      local_action:
+         module: zabbix_host
+         server_url: http://192.168.1.134
+         login_user: Admin
+         login_password: zabbix
+         host_name: "{{ item.value.name | string }}"
+         visible_name: "{{ item.value.name | string }}"
+         description: My ExampleHost Description
+         host_groups:
+            - "{{ item.value.group }}"
+         link_templates:
+            - ICMP Ping
+         status: enabled
+         state: present
+         inventory_mode: manual
+         inventory_zabbix:
+             tag: "{{ item.value.group }}"
+         ipmi_authtype: 2
+         ipmi_privilege: 4
+         ipmi_username: cisco
+         ipmi_password: cisco
+         interfaces:
+             - type: 1
+               main: 1
+               useip: 1
+               ip: "{{ item.value.ip }}"
+               dns: ""
+               port: 10051
+      loop: "{{ lookup('dict', devices) }}"
