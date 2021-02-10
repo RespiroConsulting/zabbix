@@ -21,4 +21,4 @@ while( i < count):
         f.write('  '+"group:"+' '+devicegroup+'\n')
         f.write('  '+"name:"+' '+devicename+'\n')
         f.write('\n')
-
+f.close()
