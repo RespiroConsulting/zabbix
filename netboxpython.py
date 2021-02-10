@@ -5,7 +5,9 @@ r = requests.get(url, headers=headers, verify=False)
 jsondata = r.json()
 count = jsondata['count']
 i=0
-f = open("devices.yml", "w")
+save_path = '/var/lib/awx/venv/'
+file = os.path.join(save_path, devices+".yml")
+f = open(file, "w")
 type1 = 2
 type2 = 2
 while( i < count):
