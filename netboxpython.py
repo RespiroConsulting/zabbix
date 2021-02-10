@@ -1,4 +1,6 @@
 import requests
+import os
+
 url = 'https://192.168.1.224:4430/api/dcim/devices'
 headers = { 'Authorization': "Token f857d283c8a38333198893d4d99bce13cb45a1ce"}
 r = requests.get(url, headers=headers, verify=False)
