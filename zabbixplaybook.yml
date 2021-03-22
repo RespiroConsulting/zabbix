@@ -16,9 +16,9 @@
     - name: Configure hosts in zabbix
       local_action:
          module: zabbix_host
-         server_url: http://192.168.1.134
-         login_user: Admin
-         login_password: zabbix
+         server_url: xyz
+         login_user: xyz
+         login_password: xyz
          host_name: "{{ item.value.name | string }}"
          visible_name: "{{ item.value.name | string }}"
          description: My ExampleHost Description
