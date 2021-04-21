@@ -26,8 +26,6 @@
             - "{{ item.value.group }}"
          link_templates:
             - ICMP Ping
-            - SSH Service
-            - Zabbix Server
          status: enabled
          state: present
          inventory_mode: manual
