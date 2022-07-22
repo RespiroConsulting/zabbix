@@ -6,7 +6,7 @@
       become: true
 
     - name: Register YAML file content as a variable
-      shell: cat /var/lib/awx/venv/devices.yml
+      shell: cat /opt/netbox/devices.yml
       register: result
 
     - name: Set a variable as a dictionary
